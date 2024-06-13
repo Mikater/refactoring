@@ -1,10 +1,9 @@
-import  random
 import customtkinter as ctk
 from tkinter import Toplevel
 from CTkMessagebox import CTkMessagebox
 import time
 from PIL import Image
-import foto
+
 
 class OnlineStoreApp:
     def __init__(self, root):
@@ -27,7 +26,7 @@ class OnlineStoreApp:
         self.main_frame.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, padx=10, pady=10)
 
         self.create_menu()
-        self.create_main_interface()
+        self.product_base()
 
         self.switch_var = ctk.StringVar(value="off")
         self.switch = ctk.CTkSwitch(self.root, command=self.switch_event,
@@ -46,20 +45,19 @@ class OnlineStoreApp:
         self.root.after(1000, self.update_clock)
 
     def create_menu(self):
-
         ctk.CTkButton(self.menu_frame, text="Меню", command=self.show_menu).pack(side=ctk.LEFT)
         ctk.CTkButton(self.menu_frame, text="Замовлення", command=self.show_orders).pack(side=ctk.LEFT)
-        ctk.CTkButton(self.menu_frame, text="Новинки", command=self.show_new_products).pack(side=ctk.LEFT)
         ctk.CTkButton(self.menu_frame, text="Кошик", command=self.show_cart).pack(side=ctk.LEFT)
 
     def switch_event(self):
+        # Зміна теми додатку
         if self.switch_var.get() == 'off':
             ctk.set_appearance_mode("dark")
 
         else:
             ctk.set_appearance_mode("light")
 
-    def create_main_interface(self):
+    def product_base(self):
         self.products = [
             {"name": "Піца Грибна", "discount": "20%", "price": 230,
              "description": "Піца з грибами, сиром, томатним соусом та зеленню."},
@@ -83,9 +81,7 @@ class OnlineStoreApp:
             {"name": "Гарячий Дог з Кетчупом і Гірчицею", "discount": "8%", "price": 70,
              "description": "Гарячий дог з ковбасою, кетчупом, гірчицею та цибулею."}
         ]
-        self.product_menu = [
 
-        ]
         self.ingridient = [
             {"name": "Помідор", "price": 7},
             {"name": "Курка", "price": 22},
@@ -148,13 +144,9 @@ class OnlineStoreApp:
         row_frame = ctk.CTkFrame(self.main_frame)
         row_frame.pack(side=ctk.TOP, pady=20)
 
-        square_names = ["""Попробуй сам
-                Ствои совє унікальне
-                     смакуй по свому""", """Вибери дію 
-                            Та користуйся своєю
-                            уявою""", """А тепер час 
-                            смакувати 
-                                     Смачного """]
+        square_names = ["Спропробуй сам!\nСтвори совє унікальне\nCмакуй по свому",
+                        "Вибери дію \nТа користуйся своєю \nУявою",
+                        "А тепер час\nсмакувати\nСмачного!"]
 
         for i, name in enumerate(square_names):
             square_frame = ctk.CTkFrame(row_frame, width=200, height=200, bg_color="grey", fg_color="grey")
@@ -254,7 +246,7 @@ class OnlineStoreApp:
 
         self.set_name_entry = ctk.CTkEntry(custom_set_window, placeholder_text="Назва піци")
         self.set_name_entry.pack(pady=10)
-
+        
         self.custom_set_products = []
         checkbox_vars = []
 
@@ -267,51 +259,6 @@ class OnlineStoreApp:
 
         order_button = ctk.CTkButton(custom_set_window, text="Замовити", command=order_custom_set)
         order_button.pack(pady=20)
-
-    def show_new_products(self):
-        self.main_frame.destroy()
-        self.main_frame = ctk.CTkFrame(self.root)
-        self.main_frame.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, padx=10, pady=10)
-
-        ctk.CTkLabel(self.main_frame, text="Новинки", font=("Arial", 14)).pack(pady=10)
-
-        image_paths = [
-            "foto/pizza1.jpg",
-            "foto/pizza2.jpg",
-            "foto/pizza3.jpg",
-            "foto/pizza4.jpeg"
-        ]
-        image_paths_dark = [
-            "foto/pizza1_dark.jpg",
-            "foto/pizza2_dark.jpg",
-            "foto/pizza3.jpg",
-            "foto/pizza4.jpeg"
-        ]
-
-        frame_top = ctk.CTkFrame(self.main_frame)
-        frame_top.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, pady=5)
-        frame_bottom = ctk.CTkFrame(self.main_frame)
-        frame_bottom.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, pady=5)
-
-        frames = [frame_top, frame_bottom]
-
-        for i in range(len(image_paths)):
-            img_path = image_paths[i]
-            img_path_dark = image_paths_dark[i]
-
-            img = Image.open(img_path)
-            img_dark = Image.open(img_path_dark)
-
-            img = img.resize((200, 200), Image.LANCZOS)
-            img_dark = img_dark.resize((200, 200), Image.LANCZOS)
-
-            img_ctk = ctk.CTkImage(light_image=img, dark_image=img_dark, size=(200, 200))
-
-            label = ctk.CTkLabel(frames[i // 2], image=img_ctk, text="")
-            label.image = img_ctk
-            label.image_path = img_path
-            label.pack(side=ctk.LEFT, padx=3, pady=3, expand=True, fill=ctk.BOTH)
-            label.bind("<Button-1>", lambda event, path=img_path: print(f"Clicked on: {path}"))
 
     def show_cart(self):
         self.main_frame.destroy()
