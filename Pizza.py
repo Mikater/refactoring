@@ -2,7 +2,6 @@ import customtkinter as ctk
 from tkinter import Toplevel
 from CTkMessagebox import CTkMessagebox
 import time
-from PIL import Image
 
 
 class OnlineStoreApp:
@@ -246,7 +245,7 @@ class OnlineStoreApp:
 
         self.set_name_entry = ctk.CTkEntry(custom_set_window, placeholder_text="Назва піци")
         self.set_name_entry.pack(pady=10)
-        
+
         self.custom_set_products = []
         checkbox_vars = []
 
