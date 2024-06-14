@@ -33,6 +33,7 @@ class PharmacyApp:
         self.show_menu()
 
     def update_clock(self):
+        # годинник в кутку екрану
         current_time = time.strftime('%H:%M:%S\n%D')
         self.time_label.configure(text=current_time)
         self.root.after(1000, self.update_clock)
@@ -43,17 +44,26 @@ class PharmacyApp:
 
     def create_main_interface(self):
         self.medicines = [
-            {"name": "Аспірин", "price": 70, "description": "Для полегшення болю та покращення самопочуття."},
+            {"name": "Аспірин", "price": 70,
+             "description": "Для полегшення болю та покращення самопочуття."},
             {"name": "Парацетамол", "price": 25, "description": "Ліки від болю та підвищення температури."},
-            {"name": "Но-шпа", "price": 100, "description": "Для зняття судом та спазмів кишечнику."},
-            {"name": "Феністил", "price": 160, "description": "Антигістамінний засіб для лікування алергійних захворювань."},
+            {"name": "Но-шпа", "price": 100,
+             "description": "Для зняття судом та спазмів кишечнику."},
+            {"name": "Феністил", "price": 160,
+             "description": "Антигістамінний засіб для лікування алергійних захворювань."},
             {"name": "Амоксил", "price": 185, "description": "Антибіотик для лікування інфекційних захворювань."},
-            {"name": "Лізак", "price": 145, "description": "Для лікування захворювань ротової порожнини."},
-            {"name": "Ібупрофен", "price": 60, "description": "Протизапальний засіб для зняття болю та зниження температури."},
-            {"name": "Нурофен", "price": 160, "description": "Обезболюючий припарат при менструальних болях, шлункових полях, спазмових болях."},
-            {"name": "Цитрамон", "price": 20, "description": "Комбінований препарат для полегшення головного болю та зниження температури."},
-            {"name": "Ентеросгель", "price": 70, "description": "Сорбент для очищення організму від токсинів та алергенів."},
-            {"name": "Карсил", "price": 245, "description": "Гепатопротектор для захисту та відновлення печінки."}
+            {"name": "Лізак", "price": 145,
+             "description": "Для лікування захворювань ротової порожнини."},
+            {"name": "Ібупрофен", "price": 60,
+             "description": "Протизапальний засіб для зняття болю та зниження температури."},
+            {"name": "Нурофен", "price": 160,
+             "description": "Обезболюючий припарат при менструальних болях, шлункових полях, спазмових болях."},
+            {"name": "Цитрамон", "price": 20,
+             "description": "Комбінований препарат для полегшення головного болю та зниження температури."},
+            {"name": "Ентеросгель", "price": 70,
+             "description": "Сорбент для очищення організму від токсинів та алергенів."},
+            {"name": "Карсил", "price": 245,
+             "description": "Гепатопротектор для захисту та відновлення печінки."}
         ]
 
         self.cart = []
@@ -79,10 +89,12 @@ class PharmacyApp:
         add_button.pack(side=ctk.RIGHT, padx=10)
 
     def add_to_cart(self, medicine):
+        # додавання до кошика
         self.cart.append(medicine)
         CTkMessagebox(title="Кошик", message=f"{medicine['name']} додано до кошика", icon="check")
 
     def show_cart(self):
+        # вкладка "Кошик"
         self.main_frame.destroy()
         self.main_frame = ctk.CTkFrame(self.root)
         self.main_frame.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, padx=10, pady=10)
@@ -138,6 +150,7 @@ class PharmacyApp:
         buy_button = ctk.CTkButton(self.search_result_frame, text="Купити",
                                    command=lambda m=medicine: self.add_to_cart(m))
         buy_button.pack(side=ctk.RIGHT, padx=10)
+
 
 root = ctk.CTk()
 app = PharmacyApp(root)
